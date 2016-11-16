@@ -21,7 +21,7 @@ namespace DataBase
         {
             if(data == null)
                 data = new LocalDataAccessLayer();
-
+            
             return data;
         }
 
@@ -61,6 +61,9 @@ namespace DataBase
         {
             dbConnection.CreateTable<User>(); // example table being created
             dbConnection.CreateTable<UILog>();
+            dbConnection.CreateTable<Condition>();
+            dbConnection.CreateTable<Temperature>();
+            dbConnection.CreateTable<Wind>();
         }
         /*=====================================================================
          * Initial connection to the database
@@ -75,9 +78,17 @@ namespace DataBase
           //if file does not already exist it will be created for us
           dbConnection = new SQLiteConnection(fullDBPath);
           setUpTables(); // this happens very time.
-        }
 
-        public void addLogEntry(UILog info)
+        }
+        public void addLogEntry(string condition, int temperature, int windSp, Boolean type)
+        {
+            int locCondID = getConditionByID(condition);
+            int locTempID = getTempuratureByID(temperature);
+            int locWndID = getWindByID(windSp);
+            UILog newEntry = new UILog(locCondID, locTempID, locWndID, type);
+            addUILog(newEntry);
+        }
+        private void addUILog(UILog info)
         {
             dbConnection.Insert(info);
         }
