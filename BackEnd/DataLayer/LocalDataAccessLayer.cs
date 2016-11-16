@@ -19,7 +19,7 @@ namespace DataBase
         private static LocalDataAccessLayer data = null;
         public static LocalDataAccessLayer getInstance()
         {
-            if(data == null)
+            if (data == null)
                 data = new LocalDataAccessLayer();
             
             return data;
@@ -70,14 +70,21 @@ namespace DataBase
          =====================================================================*/
         private void setUpDB()
         {
-          //get the path to where the application can store internal data 
-          string folderPath = System.Environment.GetFolderPath( System.Environment.SpecialFolder.ApplicationData );
-          string dbFileName = "AppData.db"; // name we want to give to our db file
-          string fullDBPath = System.IO.Path.Combine(folderPath,dbFileName); // properly formate the path for the system we are on
+            //get the path to where the application can store internal data 
+            string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+            string dbFileName = "AppData.db"; // name we want to give to our db file
+            string fullDBPath = System.IO.Path.Combine(folderPath, dbFileName); // properly formate the path for the system we are on
 
+<<<<<<< HEAD:DataLayer/LocalDataAccessLayer.cs
           //if file does not already exist it will be created for us
           dbConnection = new SQLiteConnection(fullDBPath);
           setUpTables(); // this happens very time.
+=======
+            //if file does not already exist it will be created for us
+            dbConnection = new SQLiteConnection(fullDBPath);
+            setUpTables(); // this happens very time.
+        }
+>>>>>>> f735ba2182aa19e382efc35e2f145b7c087907ed:BackEnd/DataLayer/LocalDataAccessLayer.cs
 
         }
         public void addLogEntry(string condition, int temperature, int windSp, Boolean type)
@@ -147,10 +154,10 @@ namespace DataBase
         }
 
 
-       /* public List<Student> getAllStudentsOrdered()
-        {
-            //gets all elements in the Student table and packages it into a List
-            return new List<Student>(dbConnection.Table<Student>().OrderBy(st => st.name));
-        }*/
+        /* public List<Student> getAllStudentsOrdered()
+         {
+             //gets all elements in the Student table and packages it into a List
+             return new List<Student>(dbConnection.Table<Student>().OrderBy(st => st.name));
+         }*/
     }
 }

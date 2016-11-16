@@ -16,7 +16,7 @@ namespace DataBase
 {
     public class User
     {
-        [PrimaryKey,AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; } // auto set when isnerted to the db
         public string name { get; set; }
         public string login { get; set; }
@@ -35,13 +35,13 @@ namespace DataBase
             this.hotRngStart = hotRngStart;
             this.hotRngEnd = hotRngEnd;
         }
-        
+
 
 
 
         public override string ToString() // called when object given to list for default list display
         {
-            return name; 
+            return name;
         }
 
     }
