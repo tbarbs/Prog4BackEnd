@@ -32,13 +32,13 @@ namespace DataBase
             this.condCode = condCode;
             this.imgName = imgName;
         }
-        
+
 
 
 
         public override string ToString() // called when object given to list for default list display
         {
-            return condName + " " + condCode; 
+            return condName + " " + condCode;
         }
 
     }

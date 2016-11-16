@@ -14,27 +14,27 @@ using SQLite;
 
 namespace DataBase
 {
-    public class Wind
+    public class Temperature
     {
         [PrimaryKey]
-        public int windSp { get; set; } // auto set when isnerted to the db
-        public int windCode { get; set; }
+        public int temperature { get; set; } // auto set when isnerted to the db
+        public int tempCode { get; set; }
 
 
-        public Wind() { } // must have a default constructor to use SQLite methods 
+        public Temperature() { } // must have a default constructor to use SQLite methods 
 
-        public Wind(int windSp, int windCode)
+        public Temperature(int temperature, int tempCode)
         {
-            this.windSp = windSp;
-            this.windCode = windCode;
+            this.temperature = temperature;
+            this.tempCode = tempCode;
         }
-        
+
 
 
 
         public override string ToString() // called when object given to list for default list display
         {
-            return windSp + " " + windCode; 
+            return temperature + " " + tempCode;
         }
 
     }

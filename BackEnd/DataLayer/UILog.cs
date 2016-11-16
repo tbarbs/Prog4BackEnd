@@ -16,7 +16,7 @@ namespace DataBase
 {
     public class UILog
     {
-        [PrimaryKey,AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; } // auto set when isnerted to the db
         public string condition { get; set; }
         public int temperature { get; set; }
@@ -33,14 +33,14 @@ namespace DataBase
             this.windSp = windSp;
             this.type = type;
         }
-        
+
 
 
 
         public override string ToString() // called when object given to list for default list display
         {
             String str = "Temperature: " + temperature + ", Condition: " + condition + ", Wind Speed:" + windSp + ", Type:" + type;
-            return str ; 
+            return str;
         }
 
     }
