@@ -82,12 +82,15 @@ namespace DataBase
         }
 
 
-        }
-        public void addLogEntry(string condition, int temperature, int windSp, Boolean type)
+        
+        public void addLogEntry(int condition, int temperature, int windSp, Boolean type)
         {
-            int locCondID = getConditionByID(condition);
-            int locTempID = getTempuratureByID(temperature);
-            int locWndID = getWindByID(windSp);
+            Condition cond = getConditionByID(condition);
+            Temperature temp = getTempuratureByID(temperature);
+            Wind wnd = getWindByID(windSp);
+            int locCondID = cond.condCode;
+            int locTempID = temp.tempCode;
+            int locWndID = wnd.windCode;
             UILog newEntry = new UILog(locCondID, locTempID, locWndID, type);
             addUILog(newEntry);
         }
@@ -103,7 +106,7 @@ namespace DataBase
 
         public void deleteLogEntryByID(int id)
         {
-            dbConnection.Delete<Student>(id);
+            dbConnection.Delete<UILog>(id);
         }
 
         public void updateUserInfo(User info)
@@ -112,7 +115,7 @@ namespace DataBase
         }
         public User getUser()
         {
-            return dbConnection.Get<UILog>();
+            return dbConnection.Get<User>(0);
         }
         public void addUser(User info)
         {
@@ -132,7 +135,7 @@ namespace DataBase
         }
         public Temperature getTempuratureByID(int id)
         {
-            return dbConnection.Get<Tempurature>(id);
+            return dbConnection.Get<Temperature>(id);
         }
         public void addWind(Wind info)
         {

@@ -18,7 +18,7 @@ namespace DataBase
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; } // auto set when isnerted to the db
-        public string condition { get; set; }
+        public int condition { get; set; }
         public int temperature { get; set; }
         public int windSp { get; set; }
         public Boolean type { get; set; }
@@ -26,7 +26,7 @@ namespace DataBase
 
         public UILog() { } // must have a default constructor to use SQLite methods 
 
-        public UILog(string condition, int temperature, int windSp, Boolean type)
+        public UILog(int condition, int temperature, int windSp, Boolean type)
         {
             this.condition = condition;
             this.temperature = temperature;
