@@ -72,6 +72,7 @@ namespace DataBase
         {
             //get the path to where the application can store internal data 
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+            //string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbFileName = "AppData.db"; // name we want to give to our db file
             string fullDBPath = System.IO.Path.Combine(folderPath, dbFileName); // properly formate the path for the system we are on
 

@@ -21,6 +21,7 @@ namespace DataBase
         public int condition { get; set; }
         public int temperature { get; set; }
         public int windSp { get; set; }
+        public int totalState { get; set; }
         public Boolean type { get; set; }
 
 
@@ -32,6 +33,7 @@ namespace DataBase
             this.temperature = temperature;
             this.windSp = windSp;
             this.type = type;
+            totalState = calcTotalState();
         }
 
 
@@ -41,6 +43,11 @@ namespace DataBase
         {
             String str = "Temperature: " + temperature + ", Condition: " + condition + ", Wind Speed:" + windSp + ", Type:" + type;
             return str;
+        }
+
+        private int calcTotalState()
+        {
+            return condition + temperature + windSp;
         }
 
     }

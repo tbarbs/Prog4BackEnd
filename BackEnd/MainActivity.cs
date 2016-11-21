@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace BackEnd
 {
-    [Activity(Label = "BackEnd", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "BackEnd",  Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         int count = 1;

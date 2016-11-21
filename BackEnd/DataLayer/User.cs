@@ -27,13 +27,17 @@ namespace DataBase
 
         public User() { } // must have a default constructor to use SQLite methods 
 
-        public User(string name, int cldRngStart, int cldRngEnd, int hotRngStart, int hotRngEnd)
+        public User(string name)
         {
             this.name = name;
-            this.cldRngStart = cldRngStart;
-            this.cldRngEnd = cldRngEnd;
-            this.hotRngStart = hotRngStart;
-            this.hotRngEnd = hotRngEnd;
+            //this.cldRngStart = cldRngStart;
+            //this.cldRngEnd = cldRngEnd;
+            //this.hotRngStart = hotRngStart;
+            //this.hotRngEnd = hotRngEnd;
+            cldRngStart = createCStart();
+            cldRngEnd = createCEnd();
+            hotRngStart = createHStart();
+            hotRngEnd = createHEnd();
         }
 
 
@@ -44,5 +48,41 @@ namespace DataBase
             return name;
         }
 
+        public static int createCStart()
+        {
+            LocalDataAccessLayer data = null;
+            data = LocalDataAccessLayer.getInstance();
+            List<UILog> logEntries = new List<UILog>();
+            logEntries = data.getAllLogEntries();
+            int num = logEntries.Where<UILog>(p => p.type == false).Min<UILog>(p => p.totalState);
+            return num;
+        }
+        public static int createHStart()
+        {
+            LocalDataAccessLayer data = null;
+            data = LocalDataAccessLayer.getInstance();
+            List<UILog> logEntries = new List<UILog>();
+            logEntries = data.getAllLogEntries();
+            int num = logEntries.Where<UILog>(p => p.type == true).Min<UILog>(p => p.totalState);
+            return num;
+        }
+        public static int createCEnd()
+        {
+            LocalDataAccessLayer data = null;
+            data = LocalDataAccessLayer.getInstance();
+            List<UILog> logEntries = new List<UILog>();
+            logEntries = data.getAllLogEntries();
+            int num = logEntries.Where<UILog>(p => p.type == false).Max<UILog>(p => p.totalState);
+            return num;
+        }
+        public static int createHEnd()
+        {
+            LocalDataAccessLayer data = null;
+            data = LocalDataAccessLayer.getInstance();
+            List<UILog> logEntries = new List<UILog>();
+            logEntries = data.getAllLogEntries();
+            int num = logEntries.Where<UILog>(p => p.type == true).Max<UILog>(p => p.totalState);
+            return num;
+        }
     }
 }
