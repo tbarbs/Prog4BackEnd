@@ -40,9 +40,6 @@ namespace DataBase
             hotRngEnd = createHEnd();
         }
 
-
-
-
         public override string ToString() // called when object given to list for default list display
         {
             return name;
