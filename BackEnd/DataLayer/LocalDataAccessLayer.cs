@@ -80,13 +80,43 @@ namespace DataBase
             //if file does not already exist it will be created for us
             dbConnection = new SQLiteConnection(fullDBPath);
             setUpTables(); // this happens very time.
+            Boolean empty = checkIfEmpty();
+            if (empty)
+            {
+                popStaticTbls();
+            }
         }
 
+        private Boolean checkIfEmpty()
+        {
+            Boolean empty = false;
+            LocalDataAccessLayer data = getInstance();
+            List<Condition> condList = new List<Condition>();
+            condList = data.getAllConditions();
+            if (condList.Count == 0)
+            {
+                empty = true;
+            }
+            return empty;
+        }
+
+        private void popStaticTbls()
+        {
+            popWndTbl();
+        }
+
+        private void popWndTbl()
+        {
+            for(int i = 0; i < 101; i++)
+            {
+                
+            }
+        }
 
         //greeting methods
         public string getMessage(int currCon, int currTemp, int currWnd)
         {
-            string message = getGreeting() + "\r\n";
+            string message = getGreeting() + "\n";
             message += getFeeling(currCon, currTemp, currWnd);
             return message;
         }
@@ -160,8 +190,9 @@ namespace DataBase
             dbConnection.Delete<UILog>(id);
         }
 
-        public void updateUserInfo(User info)
+        public void updateUserInfo(string name, string loginStr)
         {
+            User info = new User(name, loginStr);
             dbConnection.Update(info);
         }
         public User getUser()
@@ -170,8 +201,9 @@ namespace DataBase
             User user = dbConnection.Get<User>(index);
             return user;
         }
-        public void addUser(User info)
+        public void addUser(string name, string loginStr)
         {
+            User info = new User(name, loginStr);
             dbConnection.Insert(info);
         }
         public void updateLogin(string loginStr)
@@ -179,11 +211,11 @@ namespace DataBase
             User user = getUser();
             user.login = loginStr;
         }
-        public void addCondition(Condition info)
+        private void addCondition(Condition info)
         {
             dbConnection.Insert(info);
         }
-        public Condition getConditionByID(int id)
+        private Condition getConditionByID(int id)
         {
             List<Condition> list = new List <Condition>(dbConnection.Table<Condition>());
             List<Condition> list2 = new List<Condition>(list.Where<Condition>(p => p.yahooCondId == id));
@@ -193,11 +225,11 @@ namespace DataBase
 
             return row;
         }
-        public void addTemperature(Temperature info)
+        private void addTemperature(Temperature info)
         {
             dbConnection.Insert(info);
         }
-        public Temperature getTempuratureByID(int id)
+        private Temperature getTempuratureByID(int id)
         {
             List<Temperature> list = new List<Temperature>(dbConnection.Table<Temperature>());
             List<Temperature> list2 = new List<Temperature>(list.Where<Temperature>(p => p.temperature == id));
@@ -207,11 +239,11 @@ namespace DataBase
 
             return row;
         }
-        public void addWind(Wind info)
+        private void addWind(Wind info)
         {
             dbConnection.Insert(info);
         }
-        public Wind getWindByID(int id)
+        private Wind getWindByID(int id)
         {
             List<Wind> list = new List<Wind>(dbConnection.Table<Wind>());
             List<Wind> list2 = new List<Wind>(list.Where<Wind>(p => p.windSp == id));
@@ -227,7 +259,11 @@ namespace DataBase
             //gets all elements in the UILog table and packages it into a List
             return new List<UILog>(dbConnection.Table<UILog>());
         }
-
+        private List<Condition> getAllConditions()
+        {
+            //gets all elements in the Condition table and packages it into a List
+            return new List<Condition>(dbConnection.Table<Condition>());
+        }
 
         /* public List<Student> getAllStudentsOrdered()
          {

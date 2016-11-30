@@ -23,7 +23,7 @@ namespace DataBase
         public int windSp { get; set; }
         public int totalState { get; set; }
         public Boolean type { get; set; }
-
+        //true = warm, false = cold
 
         public UILog() { } // must have a default constructor to use SQLite methods 
 
