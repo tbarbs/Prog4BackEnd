@@ -23,17 +23,15 @@ namespace DataBase
         public int yahooCondId { get; set; } // auto set when isnerted to the db
         public string condName { get; set; }
         public int condCode { get; set; }
-        public int imgName { get; set; }
 
 
         public Condition() { } // must have a default constructor to use SQLite methods 
 
-        public Condition(int yahooCondId, String condName, int condCode, int imgName)
+        public Condition(int yahooCondId, String condName, int condCode)
         {
             this.yahooCondId = yahooCondId;
             this.condName = condName;
             this.condCode = condCode;
-            this.imgName = imgName;
         }
 
 

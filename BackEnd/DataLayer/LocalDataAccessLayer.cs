@@ -90,9 +90,8 @@ namespace DataBase
         private Boolean checkIfEmpty()
         {
             Boolean empty = false;
-            LocalDataAccessLayer data = getInstance();
             List<Condition> condList = new List<Condition>();
-            condList = data.getAllConditions();
+            condList = getAllConditions();
             if (condList.Count == 0)
             {
                 empty = true;
@@ -103,6 +102,8 @@ namespace DataBase
         private void popStaticTbls()
         {
             popWndTbl();
+            popCondTbl();
+            popTempTbl();
         }
 
         private void popWndTbl()
@@ -110,6 +111,34 @@ namespace DataBase
             for(int i = 0; i < 101; i++)
             {
                 
+            }
+        }
+        private void popCondTbl()
+        {
+            addCondition(new Condition(2, "Thunderstorm", -5));
+            addCondition(new Condition(3, "Rain", -3));
+            addCondition(new Condition(5, "Rain", -3));
+            addCondition(new Condition(6, "Snow", -8));
+            addCondition(new Condition(7, "Atmosphere", 0));
+            addCondition(new Condition(800, "Clear", 8));
+            addCondition(new Condition(8, "Clouds", 1));
+            addCondition(new Condition(90, "Extreme", -15));
+            addCondition(new Condition(9, "Wind", 0)); //wind is delt with in different table so conCode = 0 as to not screw results
+        }
+
+        private void popTempTbl()
+        {
+            int tempCode = 1;
+            int index = 0;
+            for (int i = -40; i< 40; i++)
+            {
+                if(index==5)
+                {
+                    tempCode++;
+                    index = 0;
+                }
+                addTemperature(new Temperature(i, tempCode));
+                index++;
             }
         }
 
@@ -141,6 +170,7 @@ namespace DataBase
         }
         private string getFeeling(int currCon, int currTemp, int currWnd)
         {
+            currCon = formatCond(currCon);
             int cond = getConditionByID(currCon).condCode;
             int temp = getTempuratureByID(currTemp).tempCode;
             int wnd = getWindByID(currWnd).windCode;
@@ -166,6 +196,7 @@ namespace DataBase
         //manipulating DB methods
         public void addLogEntry(int condition, int temperature, int windSp, Boolean type)
         {
+            condition = formatCond(condition);
             Condition cond = getConditionByID(condition);
             Temperature temp = getTempuratureByID(temperature);
             Wind wnd = getWindByID(windSp);
@@ -174,6 +205,18 @@ namespace DataBase
             int locWndID = wnd.windCode;
             UILog newEntry = new UILog(locCondID, locTempID, locWndID, type);
             addUILog(newEntry);
+        }
+        private int formatCond(int condition)
+        {
+            if (condition != 800 && (condition > 910 || condition < 900))
+            {
+                condition = condition / 100;
+            }
+            if (condition < 910 && condition > 899)
+            {
+                condition = 90;
+            }
+            return condition;
         }
         private void addUILog(UILog info)
         {
