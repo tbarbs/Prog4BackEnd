@@ -16,7 +16,8 @@ namespace DataBase
 {
     public class Wind
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; } // auto set when isnerted to the db
         public int windSp { get; set; } // auto set when isnerted to the db
         public int windCode { get; set; }
 

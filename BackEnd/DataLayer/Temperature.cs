@@ -16,7 +16,8 @@ namespace DataBase
 {
     public class Temperature
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; } // auto set when isnerted to the db
         public int temperature { get; set; } // auto set when isnerted to the db
         public int tempCode { get; set; }
 

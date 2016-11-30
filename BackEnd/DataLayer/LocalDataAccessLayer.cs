@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -83,7 +83,57 @@ namespace DataBase
         }
 
 
-        
+        //greeting methods
+        public string getMessage(int currCon, int currTemp, int currWnd)
+        {
+            string message = getGreeting() + "\r\n";
+            message += getFeeling(currCon, currTemp, currWnd);
+            return message;
+        }
+        private string getGreeting()
+        {
+            DateTime currTime = DateTime.Now;
+            string greeting = "";
+            if(currTime.Hour>0 && currTime.Hour<12)
+            {
+                greeting = "Good Morning ";
+            }
+            else if (currTime.Hour>=12 && currTime.Hour<5)
+            {
+                greeting = "Good Afternoon ";
+            }
+            else
+            {
+                greeting = "Good Evening ";
+            }
+            greeting += getUser().name + ",";
+            return greeting;
+        }
+        private string getFeeling(int currCon, int currTemp, int currWnd)
+        {
+            int cond = getConditionByID(currCon).condCode;
+            int temp = getTempuratureByID(currTemp).tempCode;
+            int wnd = getWindByID(currWnd).windCode;
+            int currWeather = cond + temp + wnd;
+            User user = getUser();
+            user.updateRng();
+            string feeling = "";
+            if(currWeather>=user.cldRngStart && currWeather<=user.cldRngEnd)
+            {
+                feeling = "You may feel cold today.";
+            }
+            else if(currWeather >= user.hotRngStart && currWeather <= user.hotRngEnd)
+            {
+                feeling = "You may feel hot today.";
+            }
+            else
+            {
+                feeling = "Not enough data has been entered.";
+            }
+            return feeling;
+        }
+
+        //manipulating DB methods
         public void addLogEntry(int condition, int temperature, int windSp, Boolean type)
         {
             Condition cond = getConditionByID(condition);
@@ -116,11 +166,18 @@ namespace DataBase
         }
         public User getUser()
         {
-            return dbConnection.Get<User>(0);
+            int index = 1;
+            User user = dbConnection.Get<User>(index);
+            return user;
         }
         public void addUser(User info)
         {
             dbConnection.Insert(info);
+        }
+        public void updateLogin(string loginStr)
+        {
+            User user = getUser();
+            user.login = loginStr;
         }
         public void addCondition(Condition info)
         {
@@ -128,7 +185,13 @@ namespace DataBase
         }
         public Condition getConditionByID(int id)
         {
-            return dbConnection.Get<Condition>(id);
+            List<Condition> list = new List <Condition>(dbConnection.Table<Condition>());
+            List<Condition> list2 = new List<Condition>(list.Where<Condition>(p => p.yahooCondId == id));
+
+            Condition row = list2[0];
+            //return new List<Student>(dbConnection.Table<Student>().OrderBy(st => st.name));
+
+            return row;
         }
         public void addTemperature(Temperature info)
         {
@@ -136,7 +199,13 @@ namespace DataBase
         }
         public Temperature getTempuratureByID(int id)
         {
-            return dbConnection.Get<Temperature>(id);
+            List<Temperature> list = new List<Temperature>(dbConnection.Table<Temperature>());
+            List<Temperature> list2 = new List<Temperature>(list.Where<Temperature>(p => p.temperature == id));
+
+            Temperature row = list2[0];
+            //return new List<Student>(dbConnection.Table<Student>().OrderBy(st => st.name));
+
+            return row;
         }
         public void addWind(Wind info)
         {
@@ -144,7 +213,13 @@ namespace DataBase
         }
         public Wind getWindByID(int id)
         {
-            return dbConnection.Get<Wind>(id);
+            List<Wind> list = new List<Wind>(dbConnection.Table<Wind>());
+            List<Wind> list2 = new List<Wind>(list.Where<Wind>(p => p.windSp == id));
+
+            Wind row = list2[0];
+            //return new List<Student>(dbConnection.Table<Student>().OrderBy(st => st.name));
+
+            return row;
         }
 
         public List<UILog> getAllLogEntries()

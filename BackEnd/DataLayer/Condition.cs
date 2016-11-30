@@ -16,7 +16,10 @@ namespace DataBase
 {
     public class Condition
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; } // auto set when isnerted to the db
+
+
         public int yahooCondId { get; set; } // auto set when isnerted to the db
         public string condName { get; set; }
         public int condCode { get; set; }

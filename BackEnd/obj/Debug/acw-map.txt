@@ -1,8 +1,0 @@
-BackEnd.Activity1, BackEnd;md51f0fbe2d7fde7052b9bb9555806cf505.Activity1
-BackEnd.Activity1, BackEnd, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md51f0fbe2d7fde7052b9bb9555806cf505.Activity1
-BackEnd.Activity1;md51f0fbe2d7fde7052b9bb9555806cf505.Activity1
-backend.Activity1;md51f0fbe2d7fde7052b9bb9555806cf505.Activity1
-BackEnd.MainActivity, BackEnd;md51f0fbe2d7fde7052b9bb9555806cf505.MainActivity
-BackEnd.MainActivity, BackEnd, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md51f0fbe2d7fde7052b9bb9555806cf505.MainActivity
-BackEnd.MainActivity;md51f0fbe2d7fde7052b9bb9555806cf505.MainActivity
-backend.MainActivity;md51f0fbe2d7fde7052b9bb9555806cf505.MainActivity

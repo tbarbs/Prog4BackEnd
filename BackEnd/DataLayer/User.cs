@@ -27,9 +27,10 @@ namespace DataBase
 
         public User() { } // must have a default constructor to use SQLite methods 
 
-        public User(string name)
+        public User(string name, string login)
         {
             this.name = name;
+            this.login = login;
             //this.cldRngStart = cldRngStart;
             //this.cldRngEnd = cldRngEnd;
             //this.hotRngStart = hotRngStart;
@@ -44,41 +45,63 @@ namespace DataBase
         {
             return name;
         }
-
-        public static int createCStart()
+        public void updateRng()
+        {
+            cldRngStart = createCStart();
+            cldRngEnd = createCEnd();
+            hotRngStart = createHStart();
+            hotRngEnd = createHEnd();
+        }
+        private int createCStart()
         {
             LocalDataAccessLayer data = null;
             data = LocalDataAccessLayer.getInstance();
             List<UILog> logEntries = new List<UILog>();
             logEntries = data.getAllLogEntries();
-            int num = logEntries.Where<UILog>(p => p.type == false).Min<UILog>(p => p.totalState);
+            int num = 0;
+            if (logEntries.Count != 0)
+            {
+                num = logEntries.Where<UILog>(p => p.type == false).Min<UILog>(p => p.totalState);
+            }
             return num;
         }
-        public static int createHStart()
+        private int createHStart()
         {
             LocalDataAccessLayer data = null;
             data = LocalDataAccessLayer.getInstance();
             List<UILog> logEntries = new List<UILog>();
             logEntries = data.getAllLogEntries();
-            int num = logEntries.Where<UILog>(p => p.type == true).Min<UILog>(p => p.totalState);
+            int num = 0;
+            if (logEntries.Count != 0)
+            {
+                num = logEntries.Where<UILog>(p => p.type == true).Min<UILog>(p => p.totalState);
+            }
             return num;
         }
-        public static int createCEnd()
+        private int createCEnd()
         {
             LocalDataAccessLayer data = null;
             data = LocalDataAccessLayer.getInstance();
             List<UILog> logEntries = new List<UILog>();
             logEntries = data.getAllLogEntries();
-            int num = logEntries.Where<UILog>(p => p.type == false).Max<UILog>(p => p.totalState);
+            int num = 0;
+            if (logEntries.Count != 0)
+            {
+                num = logEntries.Where<UILog>(p => p.type == false).Max<UILog>(p => p.totalState);
+            }
             return num;
         }
-        public static int createHEnd()
+        private int createHEnd()
         {
             LocalDataAccessLayer data = null;
             data = LocalDataAccessLayer.getInstance();
             List<UILog> logEntries = new List<UILog>();
             logEntries = data.getAllLogEntries();
-            int num = logEntries.Where<UILog>(p => p.type == true).Max<UILog>(p => p.totalState);
+            int num = 0;
+            if (logEntries.Count != 0)
+            {
+                num = logEntries.Where<UILog>(p => p.type == true).Max<UILog>(p => p.totalState);
+            }
             return num;
         }
     }
