@@ -108,11 +108,20 @@ namespace DataBase
 
         private void popWndTbl()
         {
-            for(int i = 0; i < 101; i++)
+            int windCode = 1;
+            int index = 0;
+            for (int i = 0; i < 101; i++)
             {
-                
+                if (index == 5)
+                {
+                    windCode++;
+                    index = 0;
+                }
+                addWind(new Wind(i, windCode));
+                index++;
             }
         }
+        
         private void popCondTbl()
         {
             addCondition(new Condition(2, "Thunderstorm", -5));
